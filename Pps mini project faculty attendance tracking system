@@ -1,0 +1,210 @@
+CODE
+
+#include <iostream>
+
+#include <string>
+
+using namespace std;
+
+// Define a struct to store faculty details
+
+struct Faculty {
+
+ int id;
+
+ string name;
+
+ char attendance; // 'P' for Present, 'A' for Absent
+
+};
+
+// Class to manage the attendance system
+
+class AttendanceSystem {
+
+private:
+
+ Faculty facultyList[100]; // Array to store faculty data (up to 
+
+100 faculties)
+
+ int totalFaculty; // Counter for total number of faculties added
+public:
+
+ // Constructor to initialize totalFaculty
+
+ AttendanceSystem() {
+
+ totalFaculty = 0;
+
+ }
+
+ // Function to add a new faculty member
+
+ void addFaculty() {
+
+ if (totalFaculty < 100) {
+
+ cout << "Enter Faculty ID: ";
+
+ cin >> facultyList[totalFaculty].id;
+
+ cout << "Enter Faculty Name: ";
+
+ cin.ignore(); // to clear the input buffer
+
+ getline(cin, facultyList[totalFaculty].name);
+
+ facultyList[totalFaculty].attendance = 'A'; // Initially 
+
+mark as Absent
+
+ totalFaculty++;
+
+ cout << "Faculty added successfully!" << endl;
+
+ } else {cout << "Cannot add more faculties. Max limit reached!" 
+
+<< endl;
+
+ }
+
+ }
+
+ // Function to mark attendance for a specific faculty
+
+ void markAttendance() {
+
+ int id;
+
+ cout << "Enter Faculty ID to mark attendance: ";
+
+ cin >> id;
+
+ bool found = false;
+
+ for (int i = 0; i < totalFaculty; i++) {
+
+ if (facultyList[i].id == id) {
+
+ cout << "Mark attendance for " << facultyList[i].name 
+
+<< " (P for Present, A for Absent): ";
+
+ cin >> facultyList[i].attendance;
+
+ found = true;
+
+ cout << "Attendance updated successfully!" << endl;
+
+ break;
+
+ }}
+
+ if (!found) {
+
+ cout << "Faculty with ID " << id << " not found!" << 
+
+endl;
+
+ }
+
+ }
+
+ // Function to view attendance records of all faculties
+
+ void viewAttendance() {
+
+ if (totalFaculty == 0) {
+
+ cout << "No faculty records found." << endl;
+
+ return;
+
+ }
+
+ cout << "Faculty Attendance Records:" << endl;
+
+ for (int i = 0; i < totalFaculty; i++) {
+
+ cout << "ID: " << facultyList[i].id
+
+ << ", Name: " << facultyList[i].name
+
+ << ", Attendance: " << (facultyList[i].attendance == 
+
+'P' ? "Present" : "Absent")
+
+ << endl;}
+
+ }
+
+ // Menu to choose different options
+
+ void menu() {
+
+ int choice;
+
+ do {
+
+ cout << "\nFaculty Attendance Tracking System" << 
+
+endl;
+
+ cout << "1. Add Faculty" << endl;
+
+ cout << "2. Mark Attendance" << endl;
+
+ cout << "3. View Attendance Records" << endl;
+
+ cout << "4. Exit" << endl;
+
+ cout << "Enter your choice: ";
+
+ cin >> choice;
+
+ switch (choice) {
+
+ case 1:
+
+ addFaculty();
+
+ break;
+
+ case 2:markAttendance();
+
+ break;
+
+ case 3:
+
+ viewAttendance();
+
+ break;
+
+ case 4:
+
+ cout << "Exiting the system..." << endl;
+
+ break;
+
+ default:
+
+ cout << "Invalid choice! Please try again." << endl;
+
+ }
+
+ } while (choice != 4);
+
+ }
+
+};
+
+// Main function to run the system
+
+int main() {
+
+ AttendanceSystem system;
+
+ system.menu(); // Start the menu-driven system
+return 0;
+}
